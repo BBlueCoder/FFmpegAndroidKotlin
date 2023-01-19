@@ -14,6 +14,7 @@ import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_STRICT
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_STRICT_NORMAL
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_VIDEO_CODEC
 import com.bluecoder.ffmpegandroidkotlin.utils.extractMetadataFromOutput
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import java.io.File
@@ -35,16 +36,16 @@ class FFmpegWrapper(private val context: Context) {
         val ffmpeg = FFmpeg(context)
         val sb = StringBuilder()
         ffmpeg.executeCommand(args).onCompletion {
-            println("--------------------------------- $sb")
-            val fileMetadata = extractMetadataFromOutput(sb.toString())
-            emit(Result.success(fileMetadata))
-        }.collect{
-            it.onSuccess { output ->
-                sb.appendLine(output)
+            if(it != null)
+                return@onCompletion
+            else{
+                val fileMetadata = extractMetadataFromOutput(sb.toString())
+                emit(Result.success(fileMetadata))
             }
-            it.onFailure { throwable ->
-                emit(Result.failure(throwable))
-            }
+        }.catch {
+            emit(Result.failure(it))
+        }.collect{output ->
+            sb.appendLine(output)
         }
 
     }
@@ -55,17 +56,17 @@ class FFmpegWrapper(private val context: Context) {
         val videoFile = File(video)
         val audioFile = File(audio)
 
-        if (!videoFile.exists() || !audioFile.exists())
-            emit(Result.failure(NullPointerException("Inputs not found")))
-
-        if (!videoFile.canRead() || !audioFile.canRead())
-            emit(Result.failure(IllegalArgumentException("Could not read inputs")))
+//        if (!videoFile.exists() || !audioFile.exists())
+//            throw NullPointerException("Inputs not found")
+//
+//        if (!videoFile.canRead() || !audioFile.canRead())
+//            throw IllegalArgumentException("Could not read inputs")
 
         val args = arrayOf(
             FFMPEG_INPUT,
-            videoFile.path,
+            video,
             FFMPEG_INPUT,
-            audioFile.path,
+            audio,
             FFMPEG_VIDEO_CODEC,
             FFMPEG_COPY_CODEC,
             FFMPEG_AUDIO_CODEC,
@@ -78,6 +79,7 @@ class FFmpegWrapper(private val context: Context) {
             FFMPEG_SHORTEST,
             output
         )
+
         val ffmpeg = FFmpeg(context)
         ffmpeg.executeCommand(args).collect {
             emit(it)

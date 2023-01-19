@@ -13,7 +13,6 @@ class Shell private constructor() {
 
     companion object {
         private var instance: Shell? = null
-        private var isShellCommandRunning = false
 
         fun getInstance(): Shell {
             if (instance == null) {
@@ -28,17 +27,19 @@ class Shell private constructor() {
         println("------------------------------ cmd : ${cmd.joinToString(" ")}")
         val process = Runtime.getRuntime().exec(cmd)
 
+        var line = ""
         while (!process.isProcessCompleted()) {
             process.errorStream.streamBufferToReadableFormat().collect{
+                line = it
                 emit(it)
             }
         }
 
-//        if (process.exitValue() == 0) {
-//            emit("end "+process.inputStream.convertBufferToReadableFormat())
-//        } else {
-//            throw Exception(process.errorStream.convertBufferToReadableFormat())
-//        }
+        if (process.exitValue() == 0) {
+            emit(process.inputStream.convertBufferToReadableFormat())
+        } else {
+            throw Exception(line+process.errorStream.convertBufferToReadableFormat())
+        }
 
     }.flowOn(Dispatchers.IO)
 

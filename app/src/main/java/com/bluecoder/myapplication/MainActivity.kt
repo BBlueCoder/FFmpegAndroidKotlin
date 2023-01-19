@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
                 val fFmpegWrapper = FFmpegWrapper(this@MainActivity)
                 val video = File(filesDir,"video_m.mp4")
                 val audio = File(filesDir,"audio.m4a")
-                fFmpegWrapper.extractMetadataFromFile(video.path).collect{
-                    it.onFailure { ex ->
-                        ex.printStackTrace()
-                    }
-                    it.onSuccess {
-                        println("------------------ success")
-                    }
+                fFmpegWrapper.mux(video.path,"tt","output.mp4").onCompletion {
+                    if(it != null)
+                        println("---------------------incomplet")
+                }.catch {
+
+                }.collect{
+                    println("------------------------ $it")
                 }
             }
 //            val video = File(filesDir, "video_m.mp4")
