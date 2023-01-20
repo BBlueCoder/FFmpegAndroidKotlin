@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -38,4 +39,16 @@ android {
 
 dependencies {
 
+}
+
+afterEvaluate{
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.bluecoder.ffmpegandroidkotlin'
+                artifactId = 'FFmpeg for android}'
+                version = '1.0'
+            }
+        }
+    }
 }
