@@ -47,9 +47,9 @@ afterEvaluate{
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.bluecoder.ffmpegandroidkotlin'
-                artifactId = 'FFmpeg-for-android'
-                version = '1.0.3'
+                groupId = 'com.github.BBlueCoder'
+                artifactId = 'FFmpegAndroidKotlin'
+                version = '1.0.6'
             }
         }
     }
