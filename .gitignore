@@ -17,9 +17,6 @@ gradle.properties
 /FFmpegAndroidKotlin/src/androidTest
 /FFmpegAndroidKotlin/src/test
 /FFmpegAndroidKotlin/.gitignore
-/FFmpegAndroidKotlin/consumer-rules.pro
-/FFmpegAndroidKotlin/proguard-rules.pro
 /app/src/androidTest
 /app/src/test
 /app/.gitignore
-/app/proguard-rules.pro
