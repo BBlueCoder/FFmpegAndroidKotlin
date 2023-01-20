@@ -47,9 +47,8 @@ afterEvaluate{
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'org.gradle.sample'
-                artifactId = 'library'
-                version = '1.0.7'
+                groupId = 'FFmpegAndroidKotlin'
+                version = '1.0.8'
             }
         }
     }
