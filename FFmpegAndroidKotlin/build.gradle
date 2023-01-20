@@ -47,9 +47,9 @@ afterEvaluate{
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.BBlueCoder'
-                artifactId = 'FFmpegAndroidKotlin'
-                version = '1.0.6'
+                groupId = 'org.gradle.sample'
+                artifactId = 'library'
+                version = '1.0.7'
             }
         }
     }
