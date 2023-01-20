@@ -12,8 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
-gradle.properties
 /FFmpegAndroidKotlin/src/androidTest
 /FFmpegAndroidKotlin/src/test
 /FFmpegAndroidKotlin/.gitignore
