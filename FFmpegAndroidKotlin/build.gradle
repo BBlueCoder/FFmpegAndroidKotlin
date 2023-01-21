@@ -41,15 +41,15 @@ dependencies {
 
 }
 
-afterEvaluate{
+afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                from components.release
+                groupId = "com.github.BBlueCoder"
+                artifactId = "FFmpegAndroidKotlin"
+                version = "2.0.0"
 
-                groupId = 'com.github.BBlueCoder'
-                artifactId = 'FFmpegAndroidKotlin'
-                version = '1.0'
+                from components.release
             }
         }
     }
