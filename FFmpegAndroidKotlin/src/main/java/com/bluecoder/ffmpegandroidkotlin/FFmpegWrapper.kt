@@ -56,17 +56,17 @@ class FFmpegWrapper(private val context: Context) {
         val videoFile = File(video)
         val audioFile = File(audio)
 
-//        if (!videoFile.exists() || !audioFile.exists())
-//            throw NullPointerException("Inputs not found")
-//
-//        if (!videoFile.canRead() || !audioFile.canRead())
-//            throw IllegalArgumentException("Could not read inputs")
+        if (!videoFile.exists() || !audioFile.exists())
+            throw NullPointerException("Inputs not found")
+
+        if (!videoFile.canRead() || !audioFile.canRead())
+            throw IllegalArgumentException("Could not read inputs")
 
         val args = arrayOf(
             FFMPEG_INPUT,
-            video,
+            videoFile.path,
             FFMPEG_INPUT,
-            audio,
+            audioFile.path,
             FFMPEG_VIDEO_CODEC,
             FFMPEG_COPY_CODEC,
             FFMPEG_AUDIO_CODEC,
