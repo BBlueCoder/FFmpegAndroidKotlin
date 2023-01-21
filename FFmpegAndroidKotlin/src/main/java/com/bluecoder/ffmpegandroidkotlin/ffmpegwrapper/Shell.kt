@@ -1,7 +1,5 @@
 package com.bluecoder.ffmpegandroidkotlin.ffmpegwrapper
 
-import android.content.Context
-import androidx.core.content.ContextCompat.getSystemService
 import com.bluecoder.ffmpegandroidkotlin.utils.convertBufferToReadableFormat
 import com.bluecoder.ffmpegandroidkotlin.utils.isProcessCompleted
 import com.bluecoder.ffmpegandroidkotlin.utils.streamBufferToReadableFormat
