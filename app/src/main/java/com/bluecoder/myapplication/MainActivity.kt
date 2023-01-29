@@ -31,22 +31,35 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 val fFmpegWrapper = FFmpegWrapper(this@MainActivity)
-                val video = File(filesDir,"video_m.mp4")
-                val audio = File(filesDir,"audio.m4a")
-                fFmpegWrapper.mux(video.path,"tt","output.mp4").onCompletion {
-                    if(it != null)
-                        println("---------------------incomplet")
-                }.catch {
+                val video = File(filesDir, "video.mp4")
+                val audio = File(filesDir, "audio.m4a")
+                val mergedVideo = File(filesDir, "video_m.mp4")
 
-                }.collect{
-                    println("------------------------ $it")
-                }
+                val audioExtractedFromVideo = File(filesDir, "ext_audio.m4a")
+                val audioExtractedFromVideoMP3 = File(filesDir, "ext_audio.mp3")
+                fFmpegWrapper.extractAudioFromVideo(mergedVideo.path, audioExtractedFromVideoMP3.path)
+                    .onCompletion {
+                        if (it != null)
+                            println("---------------------incomplet")
+                        else {
+                            mediaView.setVideoURI(Uri.fromFile(audioExtractedFromVideoMP3))
+                            mediaView.requestFocus()
+                            mediaView.start()
+                        }
+                    }.catch {
+
+                    }.collect {
+                        println("------------------------ $it")
+                    }
             }
-//            val video = File(filesDir, "video_m.mp4")
-//
+//            val video = File(filesDir, "ext_audio.m4a")
+////
 //            mediaView.setVideoURI(Uri.fromFile(video))
 //            mediaView.requestFocus()
 //            mediaView.start()
+
+//            copyFileToExternalStorage(R.raw.video,"video.mp4")
+//            copyFileToExternalStorage(R.raw.audio,"audio.m4a")
         }
 
 

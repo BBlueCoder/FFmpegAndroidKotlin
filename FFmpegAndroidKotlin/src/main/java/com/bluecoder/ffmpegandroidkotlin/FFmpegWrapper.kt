@@ -5,6 +5,7 @@ import com.bluecoder.ffmpegandroidkotlin.ffmpegwrapper.FFmpeg
 import com.bluecoder.ffmpegandroidkotlin.ffmpegwrapper.dataclasses.FileMetadata
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_AUDIO_CODEC
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_COPY_CODEC
+import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_DISABLE_VIDEO_RECORDING
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_INPUT
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_MAP
 import com.bluecoder.ffmpegandroidkotlin.utils.Constants.FFMPEG_MAP_AUDIO_FROM_SECOND_INPUT
@@ -21,7 +22,29 @@ import java.io.File
 
 class FFmpegWrapper(private val context: Context) {
 
-    //Function to extract input's metadata
+//    fun extractAudioFromVideo(input: String,output : String) = flow {
+//        val inputFile = File(input)
+//        if(!inputFile.exists())
+//            throw NullPointerException("Input not found")
+//        if(!inputFile.canRead())
+//            throw IllegalArgumentException("Could not read input")
+//
+//        val args = arrayOf(
+//            FFMPEG_INPUT,
+//            inputFile.path,
+//            FFMPEG_DISABLE_VIDEO_RECORDING,
+//            "-f",
+//            "mp3",
+//            output
+//        )
+//
+//        val ffmpeg = FFmpeg(context)
+//        ffmpeg.executeCommand(args).collect {
+//            emit(it)
+//        }
+//    }
+
+    //Function to extract file's metadata
     fun extractMetadataFromFile(input : String) = flow<Result<FileMetadata>>{
         val inputFile = File(input)
         if(!inputFile.exists())
@@ -75,6 +98,7 @@ class FFmpegWrapper(private val context: Context) {
             FFMPEG_STRICT_NORMAL,
             FFMPEG_MAP,
             FFMPEG_MAP_VIDEO_FROM_FIRST_INPUT,
+            FFMPEG_MAP,
             FFMPEG_MAP_AUDIO_FROM_SECOND_INPUT,
             FFMPEG_SHORTEST,
             output

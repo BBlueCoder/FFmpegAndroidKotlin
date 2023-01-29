@@ -26,6 +26,8 @@ object Constants {
 
     const val FFMPEG_HIDE_BANNER = "-hide_banner"
 
+    const val FFMPEG_DISABLE_VIDEO_RECORDING = "-vn"
+
 
 
 }
