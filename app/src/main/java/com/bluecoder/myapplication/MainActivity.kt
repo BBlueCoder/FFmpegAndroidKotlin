@@ -29,29 +29,29 @@ class MainActivity : AppCompatActivity() {
         mediaView.setMediaController(mediaController)
 
         btn.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val fFmpegWrapper = FFmpegWrapper(this@MainActivity)
-                val video = File(filesDir, "video.mp4")
-                val audio = File(filesDir, "audio.m4a")
-                val mergedVideo = File(filesDir, "video_m.mp4")
-
-                val audioExtractedFromVideo = File(filesDir, "ext_audio.m4a")
-                val audioExtractedFromVideoMP3 = File(filesDir, "ext_audio.mp3")
-                fFmpegWrapper.extractAudioFromVideo(mergedVideo.path, audioExtractedFromVideoMP3.path)
-                    .onCompletion {
-                        if (it != null)
-                            println("---------------------incomplet")
-                        else {
-                            mediaView.setVideoURI(Uri.fromFile(audioExtractedFromVideoMP3))
-                            mediaView.requestFocus()
-                            mediaView.start()
-                        }
-                    }.catch {
-
-                    }.collect {
-                        println("------------------------ $it")
-                    }
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val fFmpegWrapper = FFmpegWrapper(this@MainActivity)
+//                val video = File(filesDir, "video.mp4")
+//                val audio = File(filesDir, "audio.m4a")
+//                val mergedVideo = File(filesDir, "video_m.mp4")
+//
+//                val audioExtractedFromVideo = File(filesDir, "ext_audio.m4a")
+//                val audioExtractedFromVideoMP3 = File(filesDir, "ext_audio.mp3")
+//                fFmpegWrapper.extractAudioFromVideo(mergedVideo.path, audioExtractedFromVideoMP3.path)
+//                    .onCompletion {
+//                        if (it != null)
+//                            println("---------------------incomplet")
+//                        else {
+//                            mediaView.setVideoURI(Uri.fromFile(audioExtractedFromVideoMP3))
+//                            mediaView.requestFocus()
+//                            mediaView.start()
+//                        }
+//                    }.catch {
+//
+//                    }.collect {
+//                        println("------------------------ $it")
+//                    }
+//            }
 //            val video = File(filesDir, "ext_audio.m4a")
 ////
 //            mediaView.setVideoURI(Uri.fromFile(video))

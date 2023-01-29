@@ -97,7 +97,7 @@ fun extractMetadataFromOutput(output : String):FileMetadata{
         var streamFormat : StreamFormat? = null
         var width : Int? = null
         var height : Int? = null
-        var streamBitrate : String? = null
+        var streamBitrate : String?
         var fps : Float? = null
 
         val metadata = streamMetadata.substring(streamMetadata.indexOf(":")+1).trim().split(",")
